@@ -32,3 +32,11 @@ target_link_libraries(main PRIVATE
     SDL3::SDL3
     SDL3_ttf::SDL3_ttf
 )
+
+# Moving Data Directory to bin
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/Data
+        $<TARGET_FILE_DIR:main>/Data
+    COMMENT "Copying Data directory to build folder"
+)
