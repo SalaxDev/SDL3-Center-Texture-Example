@@ -36,10 +36,10 @@ private:
     WindowSize wndSize ;
     
     // Private Functions
-    void initSettings() ;
+    bool initSettings() ;
     
     // Render Functions
-    bool update() ;
+    void update() ;
     void render() ;
 public:
     // Constructor
