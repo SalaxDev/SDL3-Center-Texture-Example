@@ -42,6 +42,8 @@ private:
     bool bRunning = true ;
     WindowSize wndSize ;
     
+    SDL_Color renderColor {60, 60, 60, 255} ;
+    
     // Private Functions
     bool initSettings() ;
     
@@ -62,6 +64,7 @@ public:
     wcWindow &setWindowTitle(cstrc title) noexcept ;
     wcWindow &setFontSize(cint size) noexcept ;
     wcWindow &setFontPath(cstrc fontPath, cstrc fontName) noexcept ;
+    wcWindow &setBackgroundColor(const SDL_Color color) noexcept ;
     
     // Functions
     void init() ; // Initialize SDL3 Settings and variables
