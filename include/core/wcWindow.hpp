@@ -2,16 +2,8 @@
 #define WCWINDOW_HPP
 
 #include <SDL3/SDL.h>
+#include "type_aliases.hpp"
 
-// Aliases
-using uint = unsigned int ;
-using cuint = const unsigned int ;
-using cint = const int ;
-using cfloat = const float ;
-using cdouble = const double ;
-using cstr = const char * ;
-using cstrc = const char * const ;
-using cbool = const bool ;
 // End Aliases
 
 // Word Center Window Manager
@@ -26,6 +18,7 @@ private:
     //SDL3 Variables
     SDL_Window *wnd = nullptr ;
     SDL_Renderer *rnd = nullptr ;
+    SDL_Event evn ;
     
     // Text Variables
     SDL_Texture *p_textureText = nullptr ;
@@ -37,7 +30,9 @@ private:
     cstr title ;
     int framerate ;
     bool bLimitFramerate ;
-    bool bIsInited ;
+    bool bIsInited = false ;
+    bool bInitFailed = false ;
+    bool bRunning = true ;
     WindowSize wndSize ;
     
     // Private Functions
@@ -51,13 +46,17 @@ public:
     wcWindow(const WindowSize windowSize = {}, cstrc title = "Default Title Name", cint framerate = 60, cbool limitFramerate = true) ;
     
     // Destructor
+    ~wcWindow() ;
+    
+    // Setters
     wcWindow &setFramerateLimit(cint frame, cbool limitFramerate = true) noexcept ;
     wcWindow &setLimitFramerate(cbool limitFramerate) noexcept ;
     wcWindow &setWindowSize(const WindowSize windowSize) noexcept ;
     wcWindow &setWindowTitle(cstrc title) noexcept ;
     
     // Functions
-    void run() ;
+    void init() ; // Initialize SDL3 Settings and variables
+    void run() ; 
 };
 
 #endif // WCWINDOW_HPP
