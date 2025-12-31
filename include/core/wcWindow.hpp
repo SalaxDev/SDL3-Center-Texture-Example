@@ -24,7 +24,7 @@ private:
     // Text Variables
     SDL_Texture *p_textureText = nullptr ;
     SDL_Surface *p_surface = nullptr ;
-    TTF_Font *p_arialFont = nullptr ;
+    TTF_Font *p_comicFont = nullptr ;
     SDL_FRect textureTextRect ;
     
     cstr fontPath = "./Data/Fonts" ;
@@ -34,6 +34,7 @@ private:
     
     // Settings
     cstr title ;
+    cstr displayText ;
     
     int framerate ;
     bool bLimitFramerate ;
@@ -65,6 +66,7 @@ public:
     wcWindow &setFontSize(cint size) noexcept ;
     wcWindow &setFontPath(cstrc fontPath, cstrc fontName) noexcept ;
     wcWindow &setBackgroundColor(const SDL_Color color) noexcept ;
+    wcWindow &setDisplayText(cstrc text) noexcept ;
     
     // Functions
     void init() ; // Initialize SDL3 Settings and variables
