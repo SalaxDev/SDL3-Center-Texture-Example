@@ -39,7 +39,7 @@ private:
     void initSettings() ;
     
     // Render Functions
-    void update() ;
+    bool update() ;
     void render() ;
 public:
     // Constructor
