@@ -2,6 +2,7 @@
 #define WCWINDOW_HPP
 
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include "type_aliases.hpp"
 
 // End Aliases
@@ -23,7 +24,9 @@ private:
     // Text Variables
     SDL_Texture *p_textureText = nullptr ;
     SDL_Surface *p_surface = nullptr ;
+    TTF_Font *p_arialFont = nullptr ;
     SDL_FRect textureTextRect ;
+    
     
     
     // Settings
