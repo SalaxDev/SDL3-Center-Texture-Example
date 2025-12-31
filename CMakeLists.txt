@@ -14,12 +14,15 @@ find_package(SDL3_ttf CONFIG REQUIRED)
 include_directories(
     "include"
     "include/core"
+    "include/utils"
     "libs"
 )
 
 # Main Program
 add_executable(main
     src/main.cpp
+    src/core/wcWindow.cpp
+    src/utils/msg_helper.cpp
 )
 
 # Name Changer
