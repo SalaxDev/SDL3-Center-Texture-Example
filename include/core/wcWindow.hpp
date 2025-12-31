@@ -27,10 +27,14 @@ private:
     TTF_Font *p_arialFont = nullptr ;
     SDL_FRect textureTextRect ;
     
+    cstr fontPath = "./Data/Fonts" ;
+    cstr fontName = "ComicRelief-Regular.ttf" ;
+    int nFontSize = 24 ;
     
     
     // Settings
     cstr title ;
+    
     int framerate ;
     bool bLimitFramerate ;
     bool bIsInited = false ;
@@ -56,6 +60,8 @@ public:
     wcWindow &setLimitFramerate(cbool limitFramerate) noexcept ;
     wcWindow &setWindowSize(const WindowSize windowSize) noexcept ;
     wcWindow &setWindowTitle(cstrc title) noexcept ;
+    wcWindow &setFontSize(cint size) noexcept ;
+    wcWindow &setFontPath(cstrc fontPath, cstrc fontName) noexcept ;
     
     // Functions
     void init() ; // Initialize SDL3 Settings and variables
