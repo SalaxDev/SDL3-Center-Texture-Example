@@ -12,8 +12,8 @@ class wcWindow {
 private:
     // Window Structure
     struct WindowSize {
-        uint width, height ;
-        WindowSize(cuint width = {}, cuint height = {}) noexcept ;
+        int width, height ;
+        WindowSize(cint width = {}, cint height = {}) noexcept ;
     };
 
     //SDL3 Variables
@@ -26,6 +26,7 @@ private:
     SDL_Surface *p_surface = nullptr ;
     TTF_Font *p_comicFont = nullptr ;
     SDL_FRect textureTextRect ;
+    SDL_Color textureTextColor {} ;
     
     cstr fontPath = "./Data/Fonts" ;
     cstr fontName = "ComicRelief-Regular.ttf" ;
@@ -53,7 +54,7 @@ private:
     void render() ;
 public:
     // Constructor
-    wcWindow(const WindowSize windowSize = {}, cstrc title = "Default Title Name", cint framerate = 60, cbool limitFramerate = true) ;
+    wcWindow(const WindowSize windowSize = {}, cstrc title = "Default Title Name", cstrc displayText = "Hello, World!", cint framerate = 60, cbool limitFramerate = true) ;
     
     // Destructor
     ~wcWindow() ;
@@ -67,6 +68,7 @@ public:
     wcWindow &setFontPath(cstrc fontPath, cstrc fontName) noexcept ;
     wcWindow &setBackgroundColor(const SDL_Color color) noexcept ;
     wcWindow &setDisplayText(cstrc text) noexcept ;
+    wcWindow &setTextureTextColor(const SDL_Color color) noexcept ;
     
     // Functions
     void init() ; // Initialize SDL3 Settings and variables
