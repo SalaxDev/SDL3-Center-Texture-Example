@@ -64,12 +64,8 @@ bool wcw::initSettings() {
     tempBuffer = nullptr ; // Cleanup
     
     
-    // getting texture size
-    
-    
     // Renderer Settings
-    SDL_SetRenderDrawColor(rnd, 60, 60, 60, 255) ;
-    
+    SDL_SetRenderDrawColor(rnd, renderColor.r, renderColor.g, renderColor.b, renderColor.a) ;
     return true ;
 }
 
@@ -217,6 +213,11 @@ wcw &wcw::setBackgroundColor(const SDL_Color color) noexcept {
 
 wcw &wcw::setDisplayText(cstrc text) noexcept {
     displayText = text ;
+    return *this ;
+}
+
+wcw &wcw::setTextureTextColor(const SDL_Color color) noexcept {
+    this->textureTextColor = color ;
     return *this ;
 }
 
