@@ -60,8 +60,8 @@ public:
     ~wcWindow() ;
     
     // Setters
-    wcWindow &setFramerateLimit(cint frame, cbool limitFramerate = true) noexcept ;
-    wcWindow &setLimitFramerate(cbool limitFramerate) noexcept ;
+    wcWindow &setFramerate(cint frame, cbool limitFramerate = true) noexcept ;
+    wcWindow &LimitFramerate(cbool limitFramerate) noexcept ;
     wcWindow &setWindowSize(const WindowSize windowSize) noexcept ;
     wcWindow &setWindowTitle(cstrc title) noexcept ;
     wcWindow &setFontSize(cint size) noexcept ;
@@ -71,7 +71,7 @@ public:
     wcWindow &setTextureTextColor(const SDL_Color color) noexcept ;
     
     // Functions
-    void init() ; // Initialize SDL3 Settings and variables
+    wcWindow &init() ; // Initialize SDL3 Settings and variables
     void run() ; 
 };
 
