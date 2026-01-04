@@ -50,8 +50,6 @@ bool wcw::initSettings() {
     if (p_surface) {
         textureTextRect.w = p_surface->w ;
         textureTextRect.h = p_surface->h ;
-        printf("p_surface: [w: %d] [h: %d]\n", p_surface->w, p_surface->h) ;
-        printf("textureTextRect: [w: %f] [h: %f]\n", textureTextRect.w, textureTextRect.h) ;
         p_textureText = SDL_CreateTextureFromSurface(rnd, p_surface) ;
         if (!p_textureText) { // in case of texture text fails
             msg::logerr("Create Texture From Surface", SDL_GetError()) ;
