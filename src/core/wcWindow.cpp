@@ -260,7 +260,33 @@ wcw &wcw::setBackgroundColor(const SDL_Color color) noexcept {
 }
 
 wcw &wcw::setDisplayText(cstrc text) noexcept {
-    displayText = text ;
+    if (bIsInited) {
+        if (p_comicFont) {
+            if (p_surface) SDL_DestroySurface(p_surface) ;
+            p_surface = TTF_RenderText_Blended(p_comicFont, text, strlen(text), textureTextColor) ;
+            if (p_surface) {
+                textureTextRect.w = p_surface->w ;
+                textureTextRect.h = p_surface->h ;
+                
+                if (p_textureText) SDL_DestroyTexture(p_textureText) ; // Cleaning Texture if it's Exist
+                p_textureText = SDL_CreateTextureFromSurface(rnd, p_surface) ;
+                if (!p_textureText) { // in case of texture text fails
+                    msg::logerr("Create Texture From Surface", SDL_GetError()) ;
+                }
+                
+                // Cleaning up surface
+                SDL_DestroySurface(p_surface) ;
+                p_surface = nullptr ;
+            } else { // in case of surface text fails
+                msg::logerr("Create Surface Texture Text", SDL_GetError()) ;
+            }
+        } else {
+            msg::logerr("Find Comic Font", SDL_GetError()) ;
+        }
+    } else {
+        displayText = text ;
+    }
+        
     return *this ;
 }
 
@@ -295,5 +321,9 @@ void wcw::run() {
     while (bRunning) {
         update() ;
         render() ;
+        
+        if (bLimitFramerate) {
+            SDL_Delay(1000 / framerate) ;
+        }
     }
 }
