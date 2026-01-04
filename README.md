@@ -32,7 +32,7 @@ cmake --build build
 
 ## 🔗 Download
 if you don't want to build it yourself, you can find the latest version in Release : <br>
-[![Latest Release](https://img.shields.io/github/v/release/salaxdev/SDL3-Center-Texture-Example?style=for-the-badge&color=blue)](https://github.com/salaxdev/SDL3-Center-Texture-Example/releases/latest) <br>
+<sup>Windows 7+ 64 Bit:</sup> [![Latest Release](https://img.shields.io/github/v/release/salaxdev/SDL3-Center-Texture-Example?style=for-the-badge&color=blue)](https://github.com/salaxdev/SDL3-Center-Texture-Example/releases/latest) <br>
 **Note**: The executable is not **code-signed** and may be flagged by antivirus software. If this occurs, add an exception for the file or folder.
 
 > [!IMPORTANT]
