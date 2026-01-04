@@ -33,10 +33,13 @@ bool wcw::initSettings() {
     }
     
     // Allocating Space to link names to one buffer
-    char *tempBuffer = new char[strlen(fontPath) + strlen(fontName)] ;
+    const int tempBufferSize = strlen(fontPath) + strlen(fontName) + 2 ;
+    char *tempBuffer = new char[tempBufferSize] ;
+    snprintf(tempBuffer, tempBufferSize, "%s/%s", fontPath, fontName) ;
+    
     
     // Opening Font
-    p_comicFont = TTF_OpenFont("./Data/Fonts/", nFontSize) ;
+    p_comicFont = TTF_OpenFont(tempBuffer, nFontSize) ;
     if (!p_comicFont) {
         msg::logerr("Open Comic font", SDL_GetError()) ;
         return false ;
@@ -47,6 +50,8 @@ bool wcw::initSettings() {
     if (p_surface) {
         textureTextRect.w = p_surface->w ;
         textureTextRect.h = p_surface->h ;
+        printf("p_surface: [w: %d] [h: %d]\n", p_surface->w, p_surface->h) ;
+        printf("textureTextRect: [w: %f] [h: %f]\n", textureTextRect.w, textureTextRect.h) ;
         p_textureText = SDL_CreateTextureFromSurface(rnd, p_surface) ;
         if (!p_textureText) { // in case of texture text fails
             msg::logerr("Create Texture From Surface", SDL_GetError()) ;
@@ -62,6 +67,14 @@ bool wcw::initSettings() {
     
     delete[] tempBuffer ;
     tempBuffer = nullptr ; // Cleanup
+    
+    if (SDL_GetWindowSize(wnd, &wndSize.width, &wndSize.height)) {
+        textureTextRect = {
+            (wndSize.width - textureTextRect.w) / 2.f,
+            (wndSize.height - textureTextRect.h) / 2.f,
+            textureTextRect.w, textureTextRect.h
+        };
+    }
     
     
     // Renderer Settings
@@ -92,6 +105,21 @@ void wcw::update() {
                         break ;
                     }
                 }
+                break ;
+            }
+            
+            // Listening For Window Change event
+            case SDL_EVENT_WINDOW_RESIZED: {
+                if (SDL_GetWindowSize(wnd, &wndSize.width, &wndSize.height)) {
+                    textureTextRect = {
+                        (wndSize.width - textureTextRect.w) / 2.f,
+                        (wndSize.height - textureTextRect.h) / 2.f,
+                        textureTextRect.w, textureTextRect.h
+                    };
+                } else {
+                    msg::logerr("Get Window Size", SDL_GetError()) ;
+                }
+                break ;
             }
             
             default: {
@@ -101,11 +129,6 @@ void wcw::update() {
         } // End Event Updater
     }
     
-    if (SDL_GetWindowSize(wnd, &wndSize.width, &wndSize.height)) {
-        
-    } else {
-        msg::logerr("Get Window Size", SDL_GetError()) ;
-    }
 }
 
 void wcw::render() {
@@ -122,7 +145,7 @@ void wcw::render() {
 // Constructor
 wcw::wcWindow(const WindowSize windowSize, cstrc title, cstrc displayText, cint framerate, cbool limitFramerate)
     : wndSize(windowSize), title(title), displayText(displayText), bLimitFramerate(limitFramerate) {
-    setFramerateLimit(framerate) ;
+    setFramerate(framerate) ;
     // SDL3 Video Initialization
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         bInitFailed = true ;
@@ -143,11 +166,38 @@ wcw::wcWindow(const WindowSize windowSize, cstrc title, cstrc displayText, cint 
 
 // Destructor
 wcw::~wcWindow() {
-    // TODO: Cleaning SDL3 Vars
+    if (p_textureText) {
+        SDL_DestroyTexture(p_textureText) ;
+        p_textureText = nullptr ;
+    }
+    
+    if (p_surface) {
+        SDL_DestroySurface(p_surface) ;
+    }
+    
+    if (p_comicFont) {
+        TTF_CloseFont(p_comicFont) ;
+        p_comicFont = nullptr ;
+    }
+    
+    if (rnd) {
+        SDL_DestroyRenderer(rnd) ;
+        rnd = nullptr ;
+    }
+    
+    if (wnd) {
+        SDL_DestroyWindow(wnd) ;
+        wnd = nullptr ;
+    }
+    
+    
+    
+    TTF_Quit() ;
+    SDL_Quit() ;
 }
 
 // Setters
-wcw &wcw::setFramerateLimit(cint frame, cbool limitFramerate) noexcept {
+wcw &wcw::setFramerate(cint frame, cbool limitFramerate) noexcept {
     if (frame > 0) {
         framerate = frame ;
     } else {
@@ -156,7 +206,7 @@ wcw &wcw::setFramerateLimit(cint frame, cbool limitFramerate) noexcept {
     return *this ;
 }
 
-wcw &wcw::setLimitFramerate(cbool limitFramerate) noexcept {
+wcw &wcw::LimitFramerate(cbool limitFramerate) noexcept {
     bLimitFramerate = limitFramerate ;
     
     return *this ;
@@ -222,13 +272,14 @@ wcw &wcw::setTextureTextColor(const SDL_Color color) noexcept {
 }
 
 // Functions
-void wcw::init() {
+wcw &wcw::init() {
     if (!initSettings()) {
         bInitFailed = true ;
-        return ;
+        return *this ;
     }
     
     bIsInited = true ;
+    return *this ;
 }
 
 void wcw::run() {
