@@ -1,4 +1,4 @@
-MIT License
+ANTI-AI TRAINING MODIFIED MIT LICENSE
 
 Copyright (c) 2025 SalaxDev
 
@@ -12,8 +12,23 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
+1. The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+
+2. USE FOR AI TRAINING IS PROHIBITED. The Software, including any derivative works,
+   modifications, or substantial portions thereof, MUST NOT be used:
+   a) As training data for any machine learning, artificial intelligence,
+      or neural network system
+   b) To develop, train, fine-tune, or improve any AI model or system
+   c) As part of any dataset intended for machine consumption or analysis
+   d) By any automated system for pattern extraction or model training
+
+3. Violation of Condition 2 constitutes immediate termination of all rights
+   granted by this license and may result in legal action for copyright
+   infringement and breach of contract.
+
+4. For explicit written permission to use this Software for AI training,
+   contact: legal@[your-domain].com (required) or Telegram: https://t.me/salaxdev
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
