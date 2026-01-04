@@ -33,6 +33,13 @@ target_link_libraries(main PRIVATE
     SDL3_ttf::SDL3_ttf
 )
 
+# Hides Console for windows users
+if(WIN32)
+    target_link_options(main PRIVATE
+        -mwindows
+    )
+endif()
+
 # Moving Data Directory to bin
 add_custom_command(TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
